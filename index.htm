@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Feliz Cumpleaños Danna 🎂</title>
+
+<style>
+body{
+    margin:0;
+    height:100vh;
+    overflow:hidden;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background: radial-gradient(circle at top, #2a0040, #000);
+    font-family:Arial;
+}
+
+/* galaxia estrellas */
+.star{
+    position:absolute;
+    width:2px;
+    height:2px;
+    background:white;
+    border-radius:50%;
+    animation: moveStars 6s linear infinite;
+    opacity:0.6;
+}
+
+@keyframes moveStars{
+    from{transform:translateY(-100vh);}
+    to{transform:translateY(100vh);}
+}
+
+/* pétalos */
+.petal{
+    position:absolute;
+    font-size:18px;
+    animation: fall 7s linear infinite;
+}
+
+@keyframes fall{
+    from{transform:translateY(-120vh) rotate(0deg);}
+    to{transform:translateY(120vh) rotate(360deg);}
+}
+
+/* pantalla inicial */
+.intro{
+    text-align:center;
+    color:white;
+    animation: fadeIn 3s ease-in-out forwards;
+}
+
+@keyframes fadeIn{
+    from{opacity:0;}
+    to{opacity:1;}
+}
+
+/* corazón */
+.heart{
+    font-size:40px;
+    animation:pulse 1s infinite;
+    margin:15px;
+}
+
+@keyframes pulse{
+    0%{transform:scale(1);}
+    50%{transform:scale(1.4);}
+    100%{transform:scale(1);}
+}
+
+/* botón */
+button{
+    padding:15px 25px;
+    border:none;
+    border-radius:30px;
+    background:#ff4fd8;
+    color:white;
+    cursor:pointer;
+    box-shadow:0 0 20px #ff4fd8;
+    font-size:16px;
+    transition:0.3s;
+}
+
+button:hover{
+    transform:scale(1.1);
+}
+
+/* carta */
+.card{
+    display:none;
+    width:360px;
+    padding:20px;
+    border-radius:20px;
+    background:rgba(255,255,255,0.08);
+    backdrop-filter: blur(10px);
+    text-align:center;
+    color:white;
+    box-shadow:0 0 30px #ff6bd6;
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float{
+    0%,100%{transform:translateY(0);}
+    50%{transform:translateY(-10px);}
+}
+
+/* marco corazón */
+.frame{
+    width:130px;
+    height:130px;
+    margin:auto;
+    border-radius:50%;
+    border:3px solid #ff6bd6;
+    box-shadow:0 0 20px #ff6bd6;
+    overflow:hidden;
+}
+
+.frame img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+/* texto */
+#text{
+    font-size:14px;
+    line-height:1.5;
+    white-space:pre-line;
+    margin-top:10px;
+}
+
+/* firma */
+.signature{
+    margin-top:10px;
+    color:#ffb6ff;
+    font-style:italic;
+}
+
+/* estrellas final */
+.finalStars{
+    position:absolute;
+    width:100%;
+    text-align:center;
+    bottom:30px;
+    color:#ff6bd6;
+    font-size:18px;
+    opacity:0;
+    animation: show 5s forwards;
+}
+
+@keyframes show{
+    to{opacity:1;}
+}
+</style>
+</head>
+
+<body>
+
+<audio id="music" loop>
+    <source src="musica.mp3" type="audio/mpeg">
+</audio>
+
+
+<!-- INTRO -->
+<div class="intro" id="intro">
+    <h1>✨ Feliz Cumpleaños, Danna ✨</h1>
+    <div class="heart">❤️</div>
+  <button onclick="start()">Abrir Carta ❤️</button>
+    
+    <button onclick="document.getElementById('musica').play()">
+  Iniciar música 🎵
+</button>
+</div>
+
+<!-- CARTA -->
+<div class="card" id="card">
+
+    <div class="frame">
+        <<img src="danna.png">
+  
+    </div>
+
+    <h2>🎂 Feliz Cumpleaños 🎂</h2>
+
+    <div id="text"></div>
+
+    <div class="signature">𝒥𝒶𝓋𝒾𝑒𝓇 ❤️</div>
+
+</div>
+
+<div class="finalStars" id="final">
+❤️ Danna ❤️
+</div>
+
+<script>
+
+// estrellas
+for(let i=0;i<80;i++){
+    let s=document.createElement("div");
+    s.classList.add("star");
+    s.style.left=Math.random()*100+"vw";
+    s.style.animationDuration=(Math.random()*3+2)+"s";
+    document.body.appendChild(s);
+}
+
+// pétalos
+for(let i=0;i<25;i++){
+    let p=document.createElement("div");
+    p.classList.add("petal");
+    p.innerHTML="🌹";
+    p.style.left=Math.random()*100+"vw";
+    p.style.animationDuration=(Math.random()*4+3)+"s";
+    document.body.appendChild(p);
+}
+
+let i=0;
+let msg = `Hoy es un día muy especial, y no quería dejar pasar la oportunidad de desearle un feliz cumpleaños. ❤️
+
+Espero que Dios la bendiga siempre, que la vida le regale muchos motivos para sonreír y que todos sus sueños se hagan realidad.
+
+Gracias por todos los recuerdos bonitos que compartimos. Siempre guardaré con cariño cada momento y siempre voy a desearle lo mejor.
+
+Espero que hoy reciba muchos abrazos, muchas sonrisas y que sea inmensamente feliz, porque usted es una persona muy especial y merece todo lo bonito de este mundo.
+
+Y aunque el tiempo siga avanzando, hay personas que nunca dejan de ser importantes en nuestro corazón.
+
+✨ Feliz cumpleaños, Danna. ❤️`;
+
+function typeWriter(){
+    if(i < msg.length){
+        document.getElementById("text").innerHTML += msg.charAt(i);
+        i++;
+        setTimeout(typeWriter, 35);
+    }
+}
+function start() {
+    // Oculta la pantalla inicial
+    document.getElementById("intro").style.display = "none";
+
+    // Muestra la carta
+    document.getElementById("card").style.display = "block";
+
+    // Inicia la música (si existe)
+    let music = document.getElementById("music");
+    if (music) {
+        music.play();
+    }
+
+    // Empieza el efecto máquina de escribir
+    typeWriter();
+
+    // Mostrar ❤️ Danna ❤️ después de 8 segundos
+    setTimeout(() => {
+        let final = document.getElementById("final");
+        if (final) {
+            final.style.opacity = "1";
+        }
+    }, 8000);
+}
+
+
+
+</script>
+
+</body>
+</html>
